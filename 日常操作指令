@@ -1,0 +1,86 @@
+本地代码库无缝切换方案：
+git remote add new_origin_name git@gitlab.xiidev.com:sample/proj.git
+git fetch --progress --prune --recurse-submodules=no new_origin_name
+git branch --set-upstream-to=new_origin_name/master master
+git remote rm origin
+git remote rename new_origin_name origin
+
+#拉取分支
+git clone url
+git pull origin master
+
+#查看当前分支
+git branch
+
+#本地新建分支
+git checkout -b develop
+
+#切换分支
+git checkout develop
+
+#本地提交代码
+git add fileName
+git commit -m "注释"
+git push origin 分支名
+
+#删除分支
+git branch -D 分支名
+
+#合并分支
+git merge 分支名
+
+#解决冲突
+git reset --hard FETCH_HEAD
+
+#记住用户信息
+git config --global credential.helper store
+
+#关联远程分支
+git branch --set-upstream rule  origin/rule
+
+git branch -r -d origin/branch-name  
+
+#远程创建仓库
+
+# 安装Git
+ yum install git
+
+# 创建一个git用户组和用户，用来运行git服务
+ groupadd git
+ adduser git -g git
+
+# 找到这句：
+git:x:503:503::/home/git:/bin/bash
+
+# 改为：
+git:x:503:503::/home/git:/bin/git-shell
+
+#创建证书登录
+ mkdir /home/git/.ssh
+ chmod 700 /home/git/.ssh
+ touch 700 /home/git/.ssh/authorized_keys
+ chmod 600 /home/git/.ssh/authorized_keys
+ 
+ sudo chown -R git:git /home/git/.ssh/
+
+# 创建私钥，文件位于用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件
+ ssh-keygen -t rsa -C "youremail@example.com"
+ 
+ #初始化Git仓库
+ cd /srv
+ mkdir gitrepo
+ chown git:git gitrepo/
+ cd gitrepo
+
+# 创建一个空的Git仓库，服务器上的Git仓库通常都以.git结尾
+ git init --bare project.git
+
+# 将仓库所属用户改为git
+ chown -R git:git project.git
+
+清除.gitignore缓存
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+
+git clean -d -fx
